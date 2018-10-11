@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".guide.GuideActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_to_login"
+        android:layout_height="wrap_content"
+        android:text="登录"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_to_register"
+        android:layout_height="wrap_content"
+        android:text="注册"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_to_crud"
+        android:layout_height="wrap_content"
+        android:text="增删改查"/>
+</LinearLayout>

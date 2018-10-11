@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".guide.GuideActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_save"
+        android:layout_height="wrap_content"
+        android:text="新增"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_to_delete"
+        android:layout_height="wrap_content"
+        android:text="删除"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_to_update"
+        android:layout_height="wrap_content"
+        android:text="更新"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_to_query"
+        android:layout_height="wrap_content"
+        android:text="查询"/>
+</LinearLayout>
