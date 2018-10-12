@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import cn.bmob.kotlin.data.R
 import cn.bmob.kotlin.data.crud.CrudActivity
+import cn.bmob.kotlin.data.file.FileActivity
 import cn.bmob.kotlin.data.user.LoginActivity
 import cn.bmob.kotlin.data.user.RegisterActivity
 import kotlinx.android.synthetic.main.activity_guide.*
@@ -17,7 +18,12 @@ class GuideActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_to_login -> toLogin()
             R.id.btn_to_register -> toRegister()
             R.id.btn_to_crud -> toCrud()
+            R.id.btn_to_file -> toFile()
         }
+    }
+
+    private fun toFile() {
+        startActivity(Intent(this, FileActivity::class.java))
     }
 
     private fun toLogin() {
@@ -40,6 +46,7 @@ class GuideActivity : AppCompatActivity(), View.OnClickListener {
         btn_to_login.setOnClickListener(this)
         btn_to_register.setOnClickListener(this)
         btn_to_crud.setOnClickListener(this)
+        btn_to_file.setOnClickListener(this)
     }
 
 

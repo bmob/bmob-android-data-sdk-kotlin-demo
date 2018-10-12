@@ -2,38 +2,33 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".guide.GuideActivity">
 
     <Button
-        android:id="@+id/btn_to_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="登录"/>
+        android:id="@+id/btn_upload_single"
+        android:layout_height="wrap_content"
+        android:text="上传单个文件"/>
 
 
     <Button
-        android:id="@+id/btn_to_register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="注册"/>
+        android:id="@+id/btn_upload_multi"
+        android:layout_height="wrap_content"
+        android:text="上传多个文件"/>
 
 
     <Button
-        android:id="@+id/btn_to_crud"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="增删改查"/>
+        android:id="@+id/btn_delete_single"
+        android:layout_height="wrap_content"
+        android:text="删除单个文件"/>
 
-    <Button
-        android:id="@+id/btn_to_file"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="文件管理"/>
+
 </LinearLayout>
