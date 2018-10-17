@@ -8,9 +8,8 @@ import cn.bmob.v3.Bmob
  * @author zhangchaozhou
  */
 class KotlinDataApp :Application(){
-
     override fun onCreate() {
         super.onCreate()
-        Bmob.initialize(this,"12784168944a56ae41c4575686b7b332")
+        Bmob.initialize(this,Constant.BMOB_APP_ID)
     }
 }

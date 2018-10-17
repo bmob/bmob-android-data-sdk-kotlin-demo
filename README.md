@@ -5,7 +5,9 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
 为方便广大Bmob的Kotlin开发者，特开发此案例展示如何使用Kotlin来调用Bmob的Android数据服务SDK。
 
 
+# 初始化
 
+    Bmob.initialize(this,Constant.BMOB_APP_ID)
 
 # 增删改查
 
@@ -111,3 +113,47 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
             }
         })
     }
+
+
+# 注册登录
+
+## 用户名密码注册
+
+        /**
+         * bmob注册方法
+         */
+        var user = User()
+        user.username = username
+        user.setPassword(password)
+        user.signUp(object : SaveListener<User>() {
+            override fun done(currentUser: User?, ex: BmobException?) {
+                if (ex == null) {
+                    Toast.makeText(mContext, "注册成功", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(mContext, MainActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+## 用户名密码登录
+
+        /**
+         * bmob登录方法
+         */
+        var user = User()
+        user.username = username
+        user.setPassword(password)
+        user.login(object : SaveListener<User>() {
+            override fun done(currentUser: User?, ex: BmobException?) {
+                if (ex == null) {
+                    Toast.makeText(mContext, "登录成功", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(mContext,MainActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+

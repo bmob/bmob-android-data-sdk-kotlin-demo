@@ -61,7 +61,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
                 }
             }
-
         })
     }
 

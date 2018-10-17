@@ -58,7 +58,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         user.setPassword(password)
         user.login(object : SaveListener<User>() {
             override fun done(currentUser: User?, ex: BmobException?) {
-
                 if (ex == null) {
                     Toast.makeText(mContext, "登录成功", Toast.LENGTH_LONG).show()
                     startActivity(Intent(mContext,MainActivity::class.java))
@@ -66,10 +65,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
                 }
-
             }
         })
-
     }
 
 
