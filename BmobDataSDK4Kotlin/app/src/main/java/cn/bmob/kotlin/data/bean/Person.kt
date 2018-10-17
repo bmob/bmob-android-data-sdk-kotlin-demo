@@ -12,7 +12,4 @@ class Person : BmobObject() {
      var name: String? = null
      var age: Int = 0
      var gender: Boolean? = FALSE
-
-
-
 }

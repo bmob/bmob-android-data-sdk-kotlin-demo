@@ -35,5 +35,13 @@
         android:layout_margin="16dp"
         android:id="@+id/btn_to_query"
         android:layout_height="wrap_content"
-        android:text="查询"/>
+        android:text="查询列表"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_to_get"
+        android:layout_height="wrap_content"
+        android:text="查询单条"/>
 </LinearLayout>

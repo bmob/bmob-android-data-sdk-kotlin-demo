@@ -10,9 +10,7 @@ import cn.bmob.kotlin.data.R
 import cn.bmob.kotlin.data.bean.Person
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.FindListener
-import cn.bmob.v3.listener.SaveListener
-import cn.bmob.v3.listener.UpdateListener
+import cn.bmob.v3.listener.*
 import kotlinx.android.synthetic.main.activity_crud.*
 import java.lang.Boolean.FALSE
 
@@ -32,19 +30,88 @@ class CrudActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_to_delete -> queryAndDeleteObject()
             R.id.btn_to_update -> queryAndUpdateObject()
             R.id.btn_to_query -> queryObjects()
+            R.id.btn_to_get -> getObject("此处替换为你需要查询的objectId")
         }
     }
 
+
+    /**
+     * bmob查询单条数据
+     */
+    private fun getObject(objectId: String?) {
+        var bmobQuery: BmobQuery<Person> = BmobQuery()
+        bmobQuery.getObject(objectId, object : QueryListener<Person>() {
+            override fun done(person: Person?, ex: BmobException?) {
+                if (ex == null) {
+                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+    }
+
+
+    /**
+     * 查询并删除第一条数据
+     */
     private fun queryAndDeleteObject() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var bmobQuery: BmobQuery<Person> = BmobQuery()
+        bmobQuery.findObjects(object : FindListener<Person>() {
+            override fun done(persons: MutableList<Person>?, ex: BmobException?) {
 
+                if (ex == null) {
+                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                    if (persons != null) {
+                        for (person: Person in persons) {
+                            Log.e("Person", person.name)
+                        }
+                        /**
+                         * 删除查询结果的第一条数据
+                         */
+                        if (persons.size > 0) {
+                            deleteObject(persons[0].objectId)
+                        }
+                    }
+                } else {
+                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
+    /**
+     * 查询并修改第一条数据
+     */
     private fun queryAndUpdateObject() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var bmobQuery: BmobQuery<Person> = BmobQuery()
+        bmobQuery.findObjects(object : FindListener<Person>() {
+            override fun done(persons: MutableList<Person>?, ex: BmobException?) {
 
+                if (ex == null) {
+                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                    if (persons != null) {
+                        for (person: Person in persons) {
+                            Log.e("Person", person.name)
+                        }
+                        /**
+                         * 更新查询结果的第一条数据
+                         */
+                        if (persons.size > 0) {
+                            updateObject(persons[0].objectId)
+                        }
+                    }
+                } else {
+                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
+
+    /**
+     * bmob 查询数据列表
+     */
     private fun queryObjects() {
         var bmobQuery: BmobQuery<Person> = BmobQuery()
         bmobQuery.findObjects(object : FindListener<Person>() {
@@ -61,15 +128,17 @@ class CrudActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
                 }
             }
-
         })
-
-
     }
 
+
+    /**
+     * bmob更新一条数据
+     */
     private fun updateObject(objectId: String?) {
         var person = Person()
         person.objectId = objectId
+        person.name = "更新名字+" + System.currentTimeMillis()
         person.update(object : UpdateListener() {
             override fun done(ex: BmobException?) {
                 if (ex == null) {
@@ -82,6 +151,10 @@ class CrudActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
+
+    /**
+     * bmob删除一条数据
+     */
     private fun deleteObject(objectId: String?) {
         var person = Person()
         person.objectId = objectId
@@ -93,7 +166,6 @@ class CrudActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
                 }
             }
-
         })
     }
 

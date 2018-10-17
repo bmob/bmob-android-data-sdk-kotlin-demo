@@ -22,7 +22,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
      * var 变量
      * val 常量
      */
-
     private var mContext: Context? = null
 
 
