@@ -2,13 +2,17 @@ package cn.bmob.kotlin.data.guide
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import cn.bmob.kotlin.data.R
 import cn.bmob.kotlin.data.crud.CrudActivity
 import cn.bmob.kotlin.data.file.FileActivity
+import cn.bmob.kotlin.data.location.LocationActivity
+import cn.bmob.kotlin.data.sms.SmsActivity
+import cn.bmob.kotlin.data.update.VersionUpdateActivity
 import cn.bmob.kotlin.data.user.LoginActivity
 import cn.bmob.kotlin.data.user.RegisterActivity
+import cn.bmob.kotlin.data.user.SmsSignUpActivity
 import kotlinx.android.synthetic.main.activity_guide.*
 
 class GuideActivity : AppCompatActivity(), View.OnClickListener {
@@ -19,7 +23,23 @@ class GuideActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_to_register -> toRegister()
             R.id.btn_to_crud -> toCrud()
             R.id.btn_to_file -> toFile()
+            R.id.btn_to_sms->toSms()
+            R.id.btn_to_location->toLocation()
+            R.id.btn_to_version_update ->toVersionUpdate()
+            R.id.btn_to_sms_signup->toSmsSignUp()
         }
+    }
+
+    private fun toSmsSignUp() {
+        startActivity(Intent(this, SmsSignUpActivity::class.java))
+    }
+
+    private fun toLocation() {
+        startActivity(Intent(this, LocationActivity::class.java))
+    }
+
+    private fun toSms() {
+        startActivity(Intent(this, SmsActivity::class.java))
     }
 
     private fun toFile() {
@@ -40,6 +60,10 @@ class GuideActivity : AppCompatActivity(), View.OnClickListener {
         startActivity(Intent(this, CrudActivity::class.java))
     }
 
+    private fun toVersionUpdate() {
+        startActivity(Intent(this, VersionUpdateActivity::class.java))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guide)
@@ -47,6 +71,10 @@ class GuideActivity : AppCompatActivity(), View.OnClickListener {
         btn_to_register.setOnClickListener(this)
         btn_to_crud.setOnClickListener(this)
         btn_to_file.setOnClickListener(this)
+        btn_to_sms.setOnClickListener(this)
+        btn_to_location.setOnClickListener(this)
+        btn_to_version_update.setOnClickListener(this)
+        btn_to_sms_signup.setOnClickListener(this)
     }
 
 

@@ -30,5 +30,13 @@
         android:layout_height="wrap_content"
         android:text="删除单个文件"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_delete_multi"
+        android:layout_height="wrap_content"
+        android:text="删除多个文件"/>
+
+
 
 </LinearLayout>

@@ -7,33 +7,74 @@
     android:orientation="vertical"
     tools:context=".guide.GuideActivity">
 
-    <Button
-        android:id="@+id/btn_to_login"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="登录"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btn_to_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="登录"/>
 
 
-    <Button
-        android:id="@+id/btn_to_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="注册"/>
+            <Button
+                android:id="@+id/btn_to_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="注册"/>
 
 
-    <Button
-        android:id="@+id/btn_to_crud"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="增删改查"/>
+            <Button
+                android:id="@+id/btn_to_crud"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="增删改查"/>
 
-    <Button
-        android:id="@+id/btn_to_file"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="文件管理"/>
+            <Button
+                android:id="@+id/btn_to_file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="文件管理"/>
+
+
+            <Button
+                android:id="@+id/btn_to_sms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="短信"/>
+            <Button
+                android:id="@+id/btn_to_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="地理位置"/>
+
+
+            <Button
+                android:id="@+id/btn_to_version_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="版本更新"/>
+
+            <Button
+                android:id="@+id/btn_to_sms_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="短信注册"/>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

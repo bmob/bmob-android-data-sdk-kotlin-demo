@@ -1,6 +1,7 @@
 package cn.bmob.kotlin.data.bean
 
 import cn.bmob.v3.BmobUser
+import cn.bmob.v3.datatype.BmobFile
 import java.lang.Boolean.FALSE
 
 /**
@@ -10,9 +11,16 @@ import java.lang.Boolean.FALSE
  * @author zhangchaozhou
  */
 class User : BmobUser() {
-    var name: String? = null
-    var age: Int = 0
-    var gender: Boolean? = FALSE
+    /**
+     * 用户昵称
+     */
+    var nickname: String? = null
+
+
+    /**
+     * 用户头像
+     */
+    var avatar : BmobFile?= null
 
 
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/edt_phone"
+        android:hint="手机号码"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:text="发送短信"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/edt_code"
+        android:hint="验证码"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_verify"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:text="验证短信"
+        android:layout_height="wrap_content">
+    </Button>
+
+</LinearLayout>
