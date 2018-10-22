@@ -1,4 +1,4 @@
-package cn.bmob.kotlin.data.realtime
+package cn.bmob.kotlin.data.function.realtime
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

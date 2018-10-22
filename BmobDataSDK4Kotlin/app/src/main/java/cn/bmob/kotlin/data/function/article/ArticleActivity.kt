@@ -1,13 +1,12 @@
-package cn.bmob.kotlin.data.acl
+package cn.bmob.kotlin.data.function.article
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import cn.bmob.kotlin.data.R
 
-
-class AclActivity :AppCompatActivity() {
+class ArticleActivity :AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_acl)
+        setContentView(R.layout.activity_article)
     }
 }

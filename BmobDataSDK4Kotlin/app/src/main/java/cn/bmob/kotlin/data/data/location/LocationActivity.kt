@@ -1,4 +1,4 @@
-package cn.bmob.kotlin.data.location
+package cn.bmob.kotlin.data.data.location
 
 import android.content.Context
 import android.os.Bundle

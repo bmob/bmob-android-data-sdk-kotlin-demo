@@ -21,17 +21,26 @@ class DeleteActivity : BaseActivity(), View.OnClickListener {
         var id = v!!.id
         when (id) {
             R.id.btn_delete_one -> deleteOne()
-            R.id.btn_delete_batch -> deleteBatch()
+            R.id.btn_delete_column -> deleteColumn()
         }
     }
 
+    private fun deleteColumn() {
 
-    /**
-     * 批量删除数据
-     */
-    private fun deleteBatch() {
-
+        val gameScore = GameScore()
+        gameScore.objectId = "此处填写已经存在的objectId"
+        gameScore.remove("score")  // 删除GameScore对象中的score字段的值
+        gameScore.update(object : UpdateListener() {
+            override fun done(e: BmobException?) {
+                if (e == null) {
+                    Log.i("bmob", "成功")
+                } else {
+                    Log.i("bmob", "失败：" + e.message + "," + e.errorCode)
+                }
+            }
+        })
     }
+
 
     /**
      * 删除单条数据
@@ -55,7 +64,7 @@ class DeleteActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delete)
         btn_delete_one.setOnClickListener(this)
-        btn_delete_batch.setOnClickListener(this)
+        btn_delete_column.setOnClickListener(this)
     }
 
 

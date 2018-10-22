@@ -1,4 +1,4 @@
-package cn.bmob.kotlin.data.bql
+package cn.bmob.kotlin.data.crud.retrieve.bql
 
 import android.content.Context
 import android.os.Bundle

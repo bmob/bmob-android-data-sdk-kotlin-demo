@@ -5,9 +5,29 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
 为方便广大Bmob的Kotlin开发者，特开发此案例展示如何使用Kotlin来调用Bmob的Android数据服务SDK。
 
 
+# 集成
+
+## 仓库配置
+
+在项目build.gradle的allprojects-repositories节点下配置：
+
+    maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+
+## 依赖配置
+
+在应用build.gradle的dependencies节点下配置：
+
+    implementation 'cn.bmob.android:bmob-sdk:3.6.6'
+
 # 初始化
+	
+在应用主进程中进行代码初始化：
 
     Bmob.initialize(this,Constant.BMOB_APP_ID)
+
+
+
+
 
 # 增删改查
 

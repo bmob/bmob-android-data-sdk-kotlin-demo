@@ -1,4 +1,4 @@
-package cn.bmob.kotlin.data.relation
+package cn.bmob.kotlin.data.correlation.relation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -33,7 +33,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.Dark"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".guide.GuideActivity">
             <intent-filter>
@@ -44,13 +44,12 @@
         </activity>
         <activity android:name=".crud.CrudActivity" />
         <activity
-            android:name=".user.LoginActivity"
-            android:theme="@style/AppTheme.Dark" />
+            android:name=".user.LoginActivity" />
         <activity android:name=".user.RegisterActivity" />
         <activity android:name=".main.MainActivity" />
-        <activity android:name=".file.FileActivity" />
-        <activity android:name=".sms.SmsActivity" />
-        <activity android:name=".update.VersionUpdateActivity" />
+        <activity android:name="cn.bmob.kotlin.data.data.file.FileActivity" />
+        <activity android:name="cn.bmob.kotlin.data.function.sms.SmsActivity" />
+        <activity android:name="cn.bmob.kotlin.data.function.update.VersionUpdateActivity" />
 
         <!-- 数据共享 -->
         <provider
@@ -68,8 +67,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity
-            android:name=".user.SmsSignUpActivity"
-            android:theme="@style/AppTheme.Dark">
+            android:name=".user.sms.SmsSignUpActivity">
         </activity>
     </application>
 

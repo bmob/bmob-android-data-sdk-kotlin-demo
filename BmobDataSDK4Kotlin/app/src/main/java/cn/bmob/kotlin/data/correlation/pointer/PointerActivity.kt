@@ -1,4 +1,4 @@
-package cn.bmob.kotlin.data.pointer
+package cn.bmob.kotlin.data.correlation.pointer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

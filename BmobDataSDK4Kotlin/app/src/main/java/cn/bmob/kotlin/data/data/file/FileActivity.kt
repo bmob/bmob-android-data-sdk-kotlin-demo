@@ -1,4 +1,4 @@
-package cn.bmob.kotlin.data.file
+package cn.bmob.kotlin.data.data.file
 
 import android.Manifest
 import android.content.Context

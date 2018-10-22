@@ -1,4 +1,4 @@
-package cn.bmob.kotlin.data.update
+package cn.bmob.kotlin.data.function.update
 
 import android.Manifest
 import android.content.Context

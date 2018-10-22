@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import cn.bmob.kotlin.data.R
 import cn.bmob.kotlin.data.crud.CrudActivity
-import cn.bmob.kotlin.data.file.FileActivity
-import cn.bmob.kotlin.data.location.LocationActivity
-import cn.bmob.kotlin.data.sms.SmsActivity
-import cn.bmob.kotlin.data.update.VersionUpdateActivity
+import cn.bmob.kotlin.data.data.file.FileActivity
+import cn.bmob.kotlin.data.data.location.LocationActivity
+import cn.bmob.kotlin.data.function.sms.SmsActivity
+import cn.bmob.kotlin.data.function.update.VersionUpdateActivity
 import cn.bmob.kotlin.data.user.LoginActivity
 import cn.bmob.kotlin.data.user.RegisterActivity
-import cn.bmob.kotlin.data.user.SmsSignUpActivity
+import cn.bmob.kotlin.data.user.sms.SmsSignUpActivity
 import kotlinx.android.synthetic.main.activity_guide.*
 
 class GuideActivity : AppCompatActivity(), View.OnClickListener {

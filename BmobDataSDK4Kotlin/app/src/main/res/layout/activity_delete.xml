@@ -32,13 +32,6 @@
                 android:text="删除单条数据" />
 
 
-            <Button
-                android:id="@+id/btn_delete_batch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="批量删除数据" />
-
         </LinearLayout>
     </ScrollView>
 

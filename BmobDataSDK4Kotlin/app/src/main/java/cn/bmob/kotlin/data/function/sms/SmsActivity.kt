@@ -1,4 +1,4 @@
-package cn.bmob.kotlin.data.sms
+package cn.bmob.kotlin.data.function.sms
 
 import android.content.Context
 import android.os.Bundle

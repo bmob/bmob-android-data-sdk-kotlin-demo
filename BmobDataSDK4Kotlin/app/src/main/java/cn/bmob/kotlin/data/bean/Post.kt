@@ -19,6 +19,7 @@ class Post :BmobObject() {
      * 帖子发布者
      */
      var author: User? = null
+
     /**
      * 帖子图片
      */

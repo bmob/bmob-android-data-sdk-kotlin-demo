@@ -23,12 +23,7 @@
                 android:text="添加单条数据"/>
 
 
-            <Button
-                android:id="@+id/btn_create_batch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="批量添加数据"/>
+
 
         </LinearLayout>
     </ScrollView>
