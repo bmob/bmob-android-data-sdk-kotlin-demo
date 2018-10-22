@@ -11,22 +11,28 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
 
 # 增删改查
 
-## 添加一行数据
+
+## 新增数据
+
+### 添加一行数据
 
     /**
-     * bmob新增一条数据
+     * 新增一条数据
      */
-    private fun saveObject() {
-        var person = Person()
-        person.name = "name"
-        person.age = 11
-        person.gender = FALSE
-        person.save(object : SaveListener<String>() {
+    private fun createOne() {
+        var gameScore = GameScore()
+        gameScore.playerName = "比目"
+        gameScore.score = 89
+        gameScore.isPay = false
+        /**
+         * 请不要给 gameScore.objectId 赋值，数据新增成功后将会自动给此条数据的objectId赋值并返回！
+         */
+        gameScore.save(object : SaveListener<String>() {
             override fun done(objectId: String?, ex: BmobException?) {
                 if (ex == null) {
-                    Toast.makeText(mContext, "保存成功:$objectId", Toast.LENGTH_LONG).show()
+                    Toast.makeText(mContext, "新增数据成功：$objectId", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                    Log.e("CREATE", "新增数据失败：" + ex.message)
                 }
             }
         })

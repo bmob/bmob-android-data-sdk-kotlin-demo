@@ -1,28 +1,28 @@
 package cn.bmob.kotlin.data.crud
 
-import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.kotlin.data.bean.Post
 import cn.bmob.kotlin.data.bean.User
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.*
+import cn.bmob.v3.listener.FindListener
+import cn.bmob.v3.listener.QueryListener
+import cn.bmob.v3.listener.SaveListener
+import cn.bmob.v3.listener.UpdateListener
 import kotlinx.android.synthetic.main.activity_crud.*
-import java.lang.Boolean.FALSE
 
 /**
  * Created on 2018/10/11 14:25
  * @author zhangchaozhou
  */
-class CrudActivity : AppCompatActivity(), View.OnClickListener {
+class CrudActivity : BaseActivity(), View.OnClickListener {
 
-    private var mContext: Context? = null
 
     override fun onClick(v: View?) {
         var id: Int = v!!.id
@@ -195,7 +195,6 @@ class CrudActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crud)
-        mContext = this
         btn_save.setOnClickListener(this)
         btn_to_delete.setOnClickListener(this)
         btn_to_update.setOnClickListener(this)

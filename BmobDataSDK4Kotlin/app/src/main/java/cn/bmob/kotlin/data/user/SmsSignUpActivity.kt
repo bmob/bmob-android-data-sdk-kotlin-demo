@@ -15,7 +15,6 @@ import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.LogInListener
 import cn.bmob.v3.listener.QueryListener
-import kotlinx.android.synthetic.main.activity_sms.*
 import kotlinx.android.synthetic.main.activity_sms_sign_up.*
 
 
