@@ -1,8 +1,12 @@
 # bmob-android-data-sdk-kotlin-demo
 
-Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java写的Bmob的Android数据服务SDK。
+Kotlin已正式成为Android官方支持开发语言，具体使用可参考：
 
-为方便广大Bmob的Kotlin开发者，特开发此案例展示如何使用Kotlin来调用Bmob的Android数据服务SDK。
+```
+http://kotlinlang.org/docs/reference/android-overview.html
+```
+
+由于Kotlin和Java之间具有可互操作性，为方便广大Bmob的Kotlin开发者，特开发此案例，展示如何使用Kotlin来调用Bmob的Android数据服务SDK。
 
 
 # 集成
