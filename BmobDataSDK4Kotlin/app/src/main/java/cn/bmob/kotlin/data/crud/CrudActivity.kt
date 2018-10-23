@@ -144,7 +144,7 @@ class CrudActivity : BaseActivity(), View.OnClickListener {
         post.update(object : UpdateListener() {
             override fun done(ex: BmobException?) {
                 if (ex == null) {
-                    Toast.makeText(mContext, "删除成功", Toast.LENGTH_LONG).show()
+                    Toast.makeText(mContext, "更新成功", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
                 }

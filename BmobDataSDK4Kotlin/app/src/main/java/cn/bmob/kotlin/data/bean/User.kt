@@ -23,4 +23,5 @@ class User : BmobUser() {
     var avatar : BmobFile?= null
 
 
+
 }

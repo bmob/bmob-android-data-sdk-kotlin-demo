@@ -15,6 +15,12 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:src="@mipmap/ic_bmob" />
             <Button
                 android:id="@+id/btn_update_one"
                 android:layout_width="match_parent"

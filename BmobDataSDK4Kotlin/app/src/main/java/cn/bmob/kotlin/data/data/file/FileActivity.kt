@@ -31,15 +31,29 @@ class FileActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mContext: Context
     private val REQUEST_WRITE_CODE: Int = 1001
     private val REQUEST_SELECT_CODE: Int = 1002
+    private val REQUEST_SELECT_AVATAR_CODE: Int = 1003
 
 
     override fun onClick(v: View?) {
         var id = v!!.id
         when (id) {
             R.id.btn_upload_single -> chooseSingleFile()
+            R.id.btn_upload_avatar -> chooseAvatar()
             R.id.btn_upload_multi -> uploadMultiFile()
             R.id.btn_delete_single -> deleteSingleFile()
             R.id.btn_delete_multi -> deleteMultiFile()
+        }
+    }
+
+    private fun chooseAvatar() {
+
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        try {
+            startActivityForResult(Intent.createChooser(intent, "choose file"), REQUEST_SELECT_AVATAR_CODE)
+        } catch (ex: android.content.ActivityNotFoundException) {
+            Toast.makeText(this, "no file manager", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -193,14 +207,19 @@ class FileActivity : AppCompatActivity(), View.OnClickListener {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_SELECT_CODE && resultCode == RESULT_OK) {
-            val uri = data!!.data
-            val projection = arrayOf(MediaStore.Images.Media.DATA)
-            val cursor = managedQuery(uri, projection, null, null, null)
-            val index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor.moveToFirst()
-            val path = cursor.getString(index)
-            uploadSingle(path)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_SELECT_CODE ){
+                val uri = data!!.data
+                val projection = arrayOf(MediaStore.Images.Media.DATA)
+                val cursor = managedQuery(uri, projection, null, null, null)
+                val index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                cursor.moveToFirst()
+                val path = cursor.getString(index)
+                uploadSingle(path)
+            }else{
+
+            }
+
         }
     }
 

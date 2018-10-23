@@ -19,7 +19,27 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
 
     implementation 'cn.bmob.android:bmob-sdk:3.6.6'
 
-# 初始化
+## 权限注册
+
+在清单文件注册所需权限：
+
+    <!-- 允许联网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 获取sd卡写的权限，用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 请求安装APK，用于版本更新 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+
+## 初始化
 	
 在应用主进程中进行代码初始化：
 
@@ -30,9 +50,6 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
 
 
 # 增删改查
-
-
-## 新增数据
 
 ### 添加一行数据
 
@@ -58,23 +75,7 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
         })
     }
 
-## 查询一条数据
 
-    /**
-     * bmob查询单条数据
-     */
-    private fun getObject(objectId: String?) {
-        var bmobQuery: BmobQuery<Person> = BmobQuery()
-        bmobQuery.getObject(objectId, object : QueryListener<Person>() {
-            override fun done(person: Person?, ex: BmobException?) {
-                if (ex == null) {
-                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
-                }
-            }
-        })
-    }
 
 ## 更新一条数据
 
@@ -116,6 +117,25 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
         })
     }
 
+## 查询一条数据
+
+    /**
+     * bmob查询单条数据
+     */
+    private fun getObject(objectId: String?) {
+        var bmobQuery: BmobQuery<Person> = BmobQuery()
+        bmobQuery.getObject(objectId, object : QueryListener<Person>() {
+            override fun done(person: Person?, ex: BmobException?) {
+                if (ex == null) {
+                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+    }
+
+
 ## 查询多条数据
 
     /**
@@ -139,6 +159,186 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
             }
         })
     }
+
+
+# 批量数据操作
+
+## 批量新增数据
+
+    /**
+     * 批量新增数据
+     */
+    private fun createBatch() {
+        val gameScores = ArrayList<BmobObject>()
+        for (i in 0..2) {
+            val gameScore = GameScore()
+            gameScore.playerName = "运动员$i"
+            gameScores.add(gameScore)
+        }
+
+        /**
+         * 3.5.0版本开始提供
+         */
+        BmobBatch().insertBatch(gameScores).doBatch(object : QueryListListener<BatchResult>() {
+            override fun done(o: List<BatchResult>, e: BmobException?) {
+                if (e == null) {
+                    for (i in o.indices) {
+                        val result = o[i]
+                        val ex = result.error
+                        if (ex == null) {
+                            Log.e("CREATE BATCH", "第" + i + "个数据批量添加成功：" + result.createdAt + "," + result.objectId + "," + result.updatedAt)
+                        } else {
+                            Log.e("CREATE BATCH", "第" + i + "个数据批量添加失败：" + ex.message + "," + ex.errorCode)
+                        }
+                    }
+                } else {
+                    Log.e("CREATE BATCH", "失败：" + e.message + "," + e.errorCode)
+                }
+            }
+        })
+    }
+
+## 批量更新数据
+
+    /**
+     * 批量更新数据
+     */
+    private fun updateBatch() {
+        val gameScores = ArrayList<BmobObject>()
+        val gameScore1 = GameScore()
+        gameScore1.objectId = "此处填写已存在的objectId"
+        val gameScore2 = GameScore()
+        gameScore2.objectId = "此处填写已存在的objectId"
+        gameScore2.playerName = "赵大"
+        gameScore2.isPay = Boolean.FALSE
+        val gameScore3 = GameScore()
+        gameScore3.objectId = "此处填写已存在的objectId"
+        gameScore3.playerName = "王二"
+
+        gameScores.add(gameScore1)
+        gameScores.add(gameScore2)
+        gameScores.add(gameScore3)
+
+        /**
+         * 从3.5.0版本开始提供
+         */
+        BmobBatch().updateBatch(gameScores).doBatch(object : QueryListListener<BatchResult>() {
+
+            override fun done(o: List<BatchResult>, ex: BmobException?) {
+                if (ex == null) {
+                    for (i in o.indices) {
+                        val result = o[i]
+                        val ex = result.error
+                        if (ex == null) {
+                            Log.e("UPDATE", "第" + i + "个数据批量更新成功：" + result.updatedAt)
+                        } else {
+                            Log.e("UPDATE", "第" + i + "个数据批量更新失败：" + ex.message + "," + ex.errorCode)
+                        }
+                    }
+                } else {
+                    Log.e("UPDATE", "失败：" + ex.message + "," + ex.errorCode)
+                }
+            }
+        })
+    }
+
+
+## 批量删除操作
+
+    /**
+     * 批量删除数据
+     */
+    private fun deleteBatch() {
+        val gameScores = ArrayList<BmobObject>()
+        val gameScore1 = GameScore()
+        gameScore1.objectId = "此处填写已存在的objectId"
+        val gameScore2 = GameScore()
+        gameScore2.objectId = "此处填写已存在的objectId"
+        val gameScore3 = GameScore()
+        gameScore3.objectId = "此处填写已存在的objectId"
+
+        gameScores.add(gameScore1)
+        gameScores.add(gameScore2)
+        gameScores.add(gameScore3)
+
+
+        /**
+         * 3.5.0版本开始提供
+         */
+        BmobBatch().deleteBatch(gameScores).doBatch(object : QueryListListener<BatchResult>() {
+
+            override fun done(o: List<BatchResult>, e: BmobException?) {
+                if (e == null) {
+                    for (i in o.indices) {
+                        val result = o[i]
+                        val ex = result.error
+                        if (ex == null) {
+                            Log.e("DELETE BATCH", "第" + i + "个数据批量删除成功")
+                        } else {
+                            Log.e("DELETE BATCH", "第" + i + "个数据批量删除失败：" + ex.message + "," + ex.errorCode)
+                        }
+                    }
+                } else {
+                    Log.e("DELETE BATCH", "失败：" + e.message + "," + e.errorCode)
+                }
+            }
+        })
+    }
+
+## 批量新增、更新、删除同步操作
+
+  /**
+     * 批量新增、更新、删除同步操作
+     */
+    private fun doBatch() {
+
+        val batch = BmobBatch()
+
+
+        //批量添加
+        val gameScores = ArrayList<BmobObject>()
+        val gameScore = GameScore()
+        gameScore.playerName = "张三"
+        gameScores.add(gameScore)
+        batch.insertBatch(gameScores)
+
+        //批量更新
+        val gameScores1 = ArrayList<BmobObject>()
+        val gameScore1 = GameScore()
+        gameScore1.objectId = "此处填写已经存在的objectId"
+        gameScore1.playerName = "李四"
+        gameScores1.add(gameScore1)
+        batch.updateBatch(gameScores1)
+
+        //批量删除
+        val gameScores2 = ArrayList<BmobObject>()
+        val gameScore2 = GameScore()
+        gameScore2.objectId = "此处填写已经存在的objectId"
+        gameScores2.add(gameScore2)
+        batch.deleteBatch(gameScores2)
+
+        //从3.5.0版本开始提供
+        batch.doBatch(object : QueryListListener<BatchResult>() {
+
+            override fun done(results: List<BatchResult>, ex: BmobException?) {
+                if (ex == null) {
+                    //返回结果的results和上面提交的顺序是一样的，请一一对应
+                    for (i in results.indices) {
+                        val result = results[i]
+                        if (result.isSuccess) {//只有批量添加才返回objectId
+                            Log.e("BATCH", "第" + i + "个成功：" + result.objectId + "," + result.updatedAt)
+                        } else {
+                            val error = result.error
+                            Log.e("BATCH", "第" + i + "个失败：" + error.errorCode + "," + error.message)
+                        }
+                    }
+                } else {
+                    Log.e("BATCH", "失败：" + ex.message + "," + ex.errorCode)
+                }
+            }
+        })
+    }
+
 
 
 # 注册登录
@@ -345,6 +545,168 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
             }
         })
 
+
+# 邮箱
+
+邮箱功能目前属于付费功能，一次性付费人民币1200元永久使用，如需此功能，请提交工单申请开通。
+
+## 验证激活
+
+发送验证激活邮箱后，如果用户登录了邮箱并且点击了邮件中的激活链接，则可以使用邮箱+密码的方式进行登录。
+
+    /**
+     * 发送验证激活邮箱
+     */
+    private fun sendEmailVerify() {
+        val email = input_email.text.toString()
+        if (TextUtils.isEmpty(email)){
+            Toast.makeText(mContext,"请输入邮箱",Toast.LENGTH_LONG).show()
+            return
+        }
+        BmobUser.requestEmailVerify(email, object : UpdateListener() {
+            override fun done(e: BmobException?) {
+                if (e == null) {
+                    Log.e("sendEmailVerify","请求验证邮件成功，请到" + email + "邮箱中进行激活。")
+                } else {
+                    Log.e("sendEmailVerify","请求验证邮件失败:" + e.message)
+                }
+            }
+        })
+    }
+
+## 重置密码
+
+发送重置密码邮箱后，如果用户登录了邮箱并且点击邮件中的链接进行密码重置，则可以使用邮箱+新密码方式进行登录。
+
+
+    /**
+     * 发送重置密码邮箱
+     */
+    private fun sendEmailReset() {
+        val email = input_email.text.toString()
+        if (TextUtils.isEmpty(email)){
+            Toast.makeText(mContext,"请输入邮箱",Toast.LENGTH_LONG).show()
+            return
+        }
+        BmobUser.resetPasswordByEmail(email, object : UpdateListener() {
+            override fun done(e: BmobException?) {
+                if (e == null) {
+                    Log.e("sendEmailReset","重置密码邮件成功，请到" + email + "邮箱中进行重置。")
+                } else {
+                    Log.e("sendEmailReset","失败:" + e.message)
+                }
+            }
+        })
+    }
+
+## 邮箱+密码登录
+
+
+当邮箱通过验证激活后，即可使用邮箱+密码的方式进行登录。
+
+    /**
+     * 邮箱+密码登录
+     */
+    private fun loginEmailPassword() {
+        val email = input_email.text.toString()
+        if (TextUtils.isEmpty(email)){
+            Toast.makeText(mContext,"请输入邮箱",Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val password = input_password.text.toString()
+        if (TextUtils.isEmpty(password)){
+            Toast.makeText(mContext,"请输入邮箱",Toast.LENGTH_LONG).show()
+            return
+        }
+        BmobUser.loginByAccount(email, password, object : LogInListener<User>() {
+            override fun done(user: User?, ex: BmobException) {
+                if (ex == null) {
+                    Log.e("loginByAccount","登录成功")
+                } else {
+                    Log.e("loginByAccount","登录失败："+ex.message)
+                }
+            }
+        })
+    }
+
+
+# 第三方账号
+
+
+目前第三方账号功能只支持微博、QQ、微信三种社交账号。
+
+
+## 注册登录
+
+在第三方账号授权成功之后调用。
+
+
+    /**
+     * 1、snsType:只能是三种取值中的一种：weibo、qq、weixin
+     * 2、accessToken：接口调用凭证
+     * 3、expiresIn：access_token的有效时间
+     * 4、userId:用户身份的唯一标识，对应微博授权信息中的uid,对应qq和微信授权信息中的openid
+     */
+    private fun thirdLoginSignup(snsType: String, accessToken: String, expiresIn: String, userId: String) {
+        val authInfo = BmobUser.BmobThirdUserAuth(snsType, accessToken, expiresIn, userId)
+        BmobUser.loginWithAuthData(authInfo, object : LogInListener<JSONObject>() {
+            override fun done(data: JSONObject?, ex: BmobException?) {
+                if (ex == null) {
+                    Log.e("loginWithAuthData", "登录注册成功")
+                } else {
+                    Log.e("loginWithAuthData", "登录注册失败：" + ex.message)
+                }
+            }
+        })
+    }
+
+
+
+## 账号关联
+
+在第三方账号授权成功之后调用。
+
+    /**
+     * 关联第三方账号
+     */
+    private fun associateThird(snsType: String, accessToken: String, expiresIn: String, userId: String) {
+        val authInfo = BmobThirdUserAuth(snsType, accessToken, expiresIn, userId)
+        BmobUser.associateWithAuthData(authInfo, object : UpdateListener() {
+
+            override fun done(ex: BmobException?) {
+                if (ex == null) {
+                    Log.e("associateWithAuthData", "关联成功")
+                } else {
+                    Log.e("associateWithAuthData", "关联失败：" + ex.message)
+                }
+            }
+        })
+    }
+
+
+
+## 取消关联
+
+    /**
+     * 取消关联
+     */
+    private fun unAssociateThird(snsType: String) {
+        var currentUser: User? = BmobUser.getCurrentUser(User::class.java)
+        currentUser?.dissociateAuthData(snsType, object : UpdateListener() {
+
+            override fun done(ex: BmobException?) {
+                if (ex == null) {
+                    Log.e("dissociateAuthData", "取消关联成功")
+                } else {
+                    Log.e("dissociateAuthData", "取消关联失败：" + ex.message)
+                }
+            }
+        })
+    }
+
+
+
 # 版本更新
 
 
@@ -499,3 +861,241 @@ Kotlin和Java之间具有可互操作性，可以直接使用Kotlin来调用Java
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
+
+
+
+# 数据监听
+
+1、start方法开始连接；
+
+2、onConnectCompleted回调方法后判断是否连接成功，若成功则设置监听内容；
+
+3、onDataChange回调方法返回监听到的更新内容。
+
+    private fun startListen() {
+        val rtd = BmobRealTimeData()
+        rtd.start(object : ValueEventListener {
+            override fun onDataChange(data: JSONObject) {
+                Log.d("onDataChange", "(" + data.optString("action") + ")" + "数据：" + data)
+                val action = data.optString("action")
+                if (action == BmobRealTimeData.ACTION_UPDATETABLE) {
+                    //TODO 如果监听表更新
+                    val data = data.optJSONObject("data")
+                    Toast.makeText(mContext, "监听到更新：" + data.optString("name") + "-" + data.optString("content"), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onConnectCompleted(ex: Exception) {
+                if (ex == null) {
+                    Log.i("onConnectCompleted", "连接情况：" + if (rtd.isConnected) "已连接" else "未连接")
+                    if (rtd.isConnected) {
+                        //TODO 如果已连接，设置监听动作为：监听Chat表的更新
+                        rtd.subTableUpdate("Chat")
+                    }
+                } else {
+                    Log.e("onConnectCompleted", "连接出错：" + ex.message)
+                }
+            }
+        })
+    }
+
+
+# ACL
+
+新增一条帖子数据，并且置当前用户可写，设置所有人可读。
+
+
+    /**
+     * ACL控制一条数据的访问权限
+     */
+    private fun aclAccess() {
+        val user = BmobUser.getCurrentUser(User::class.java)
+
+        val acl = BmobACL()    //创建一个ACL对象
+        acl.setPublicReadAccess(true)  // 设置所有人可读的权限
+        acl.setWriteAccess(user, true)   // 设置当前用户可写的权限
+
+        val post = Post()
+        post.author = user
+        post.title="ACL"
+        post.content="ACL控制访问权限"
+        post.save(object : SaveListener<String>(){
+            override fun done(objectId: String?, ex: BmobException?) {
+                if (ex == null) {
+                    Log.e("ACL", "保存成功")
+                } else {
+                    Log.e("ACL", "保存失败：" + ex.message)
+                }
+            }
+        })
+    }
+
+
+
+
+# 角色
+
+
+
+    /**
+     * BmobRole：角色访问管理权限
+     */
+    private fun roleAccess() {
+        //创建公司某用户的工资对象
+        val wage = Wage()
+        wage.wage= 10000.0
+
+        //这里创建四个用户对象，分别为老板、人事小张、出纳小谢和自己
+        val boss: BmobUser? =null
+        val hr_zhang: BmobUser? =null
+        val hr_luo: BmobUser? =null
+        val cashier_xie: BmobUser? =null
+        val me: BmobUser? =null
+
+        //创建HR和Cashier两个用户角色（这里为了举例BmobRole的使用，将这段代码写在这里，正常情况下放在员工管理界面会更合适）
+        val hr = BmobRole("HR")
+        val cashier = BmobRole("Cashier")
+
+        //将hr_zhang和hr_luo归属到hr角色中
+        hr.users.add(hr_zhang)
+        hr.users.add(hr_luo)
+        //保存到云端角色表中（web端可以查看Role表）
+        hr.save(object :SaveListener<String> (){
+            override fun done(objectId: String?, ex: BmobException?) {
+                if (ex == null) {
+                    Log.e("ROLE", "保存成功")
+                } else {
+                    Log.e("ROLE", "保存失败：" + ex.message)
+                }
+            }
+        })
+
+        //将cashier_xie归属到cashier角色中
+        cashier.users.add(cashier_xie)
+        //保存到云端角色表中（web端可以查看Role表）
+        cashier.save(object :SaveListener<String> (){
+            override fun done(objectId: String?, ex: BmobException?) {
+                if (ex == null) {
+                    Log.e("ROLE", "保存成功")
+                } else {
+                    Log.e("ROLE", "保存失败：" + ex.message)
+                }
+            }
+        })
+
+        //创建ACL对象
+        val acl = BmobACL()
+        acl.setReadAccess(boss, true) // 假设老板只有一个, 设置读权限
+        acl.setReadAccess(me, true) // 给自己设置读权限
+        acl.setRoleReadAccess(hr, true) // 给hr角色设置读权限
+        acl.setRoleReadAccess(cashier, true) // 给cashier角色设置读权限
+
+        acl.setWriteAccess(boss, true) // 设置老板拥有写权限
+        acl.setRoleWriteAccess(hr, true) // 设置hr角色拥有写权限
+
+        //设置工资对象的ACL
+        wage.acl = acl
+        wage.save(object :SaveListener<String>(){
+            override fun done(objectId: String?, ex: BmobException?) {
+                if (ex == null) {
+                    Log.e("ROLE", "保存成功")
+                } else {
+                    Log.e("ROLE", "保存失败：" + ex.message)
+                }
+            }
+        })
+    }
+
+
+# 数组
+
+
+# 位置
+
+    /**
+     * 查询矩形范围内的用户
+     */
+    private fun queryRectangle() {
+        val query = BmobQuery<User>()
+        val southwestOfSF = BmobGeoPoint(112.934755, 24.52065)
+        val northeastOfSF = BmobGeoPoint(116.627623, 40.143687)
+        query.addWhereWithinGeoBox("location", southwestOfSF, northeastOfSF)
+        query.findObjects(object : FindListener<User>() {
+            override fun done(persons: List<User>, ex: BmobException?) {
+                if (ex == null) {
+                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(mContext, "查询失败：${ex.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+    }
+
+
+    /**
+     * 查询指定距离范围内的用户
+     */
+    private fun queryDistance() {
+        val query = BmobQuery<User>()
+        val southwestOfSF = BmobGeoPoint(112.934755, 24.52065)
+        //查询指定坐标指定半径内的用户
+        query.addWhereWithinRadians("location", southwestOfSF, 10.0)
+        query.findObjects(object : FindListener<User>() {
+            override fun done(persons: List<User>, ex: BmobException?) {
+                if (ex == null) {
+                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(mContext, "查询失败：${ex.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+    }
+
+
+    /**
+     * 查询最接近某个坐标的用户
+     */
+    private fun queryShortest() {
+        val query = BmobQuery<User>()
+        val location = BmobGeoPoint(112.934755, 24.52065)
+        query.addWhereNear("location", location)
+        query.setLimit(10)
+        query.findObjects(object : FindListener<User>() {
+            override fun done(persons: List<User>, ex: BmobException?) {
+                if (ex == null) {
+                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(mContext, "查询失败：${ex.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+    }
+
+
+# 关联关系
+
+## 一对一关联
+
+### 查询
+
+        val user = BmobUser.getCurrentUser<User>(User::class.java)
+        val query = BmobQuery<Post>()
+        query.addWhereEqualTo("author", user)  // 查询当前用户的所有帖子
+        query.order("-updatedAt")
+        query.include("author")// 希望在查询帖子信息的同时也把发布人的信息查询出来
+        query.findObjects(object : FindListener<Post>() {
+
+            override fun done(posts: List<Post>, e: BmobException?) {
+                if (e == null) {
+                    Log.i("bmob", "成功")
+                } else {
+                    Log.i("bmob", "失败：" + e.message)
+                }
+            }
+        })
+
+
+
+## 一对多关联
+
+## 多对多关联

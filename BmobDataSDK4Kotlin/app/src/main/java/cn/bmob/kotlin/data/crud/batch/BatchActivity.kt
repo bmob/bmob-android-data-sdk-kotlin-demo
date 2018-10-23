@@ -27,6 +27,9 @@ class BatchActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * 批量删除数据
+     */
     private fun deleteBatch() {
         val gameScores = ArrayList<BmobObject>()
         val gameScore1 = GameScore()
@@ -41,6 +44,9 @@ class BatchActivity : BaseActivity(), View.OnClickListener {
         gameScores.add(gameScore3)
 
 
+        /**
+         * 3.5.0版本开始提供
+         */
         BmobBatch().deleteBatch(gameScores).doBatch(object : QueryListListener<BatchResult>() {
 
             override fun done(o: List<BatchResult>, e: BmobException?) {
@@ -49,13 +55,13 @@ class BatchActivity : BaseActivity(), View.OnClickListener {
                         val result = o[i]
                         val ex = result.error
                         if (ex == null) {
-                            Log.e("DELETE BATCH","第" + i + "个数据批量删除成功")
+                            Log.e("DELETE BATCH", "第" + i + "个数据批量删除成功")
                         } else {
-                            Log.e("DELETE BATCH","第" + i + "个数据批量删除失败：" + ex.message + "," + ex.errorCode)
+                            Log.e("DELETE BATCH", "第" + i + "个数据批量删除失败：" + ex.message + "," + ex.errorCode)
                         }
                     }
                 } else {
-                    Log.e("DELETE BATCH","失败：" + e.message + "," + e.errorCode)
+                    Log.e("DELETE BATCH", "失败：" + e.message + "," + e.errorCode)
                 }
             }
         })
@@ -68,7 +74,7 @@ class BatchActivity : BaseActivity(), View.OnClickListener {
         val gameScores = ArrayList<BmobObject>()
         for (i in 0..2) {
             val gameScore = GameScore()
-            gameScore.playerName= "运动员$i"
+            gameScore.playerName = "运动员$i"
             gameScores.add(gameScore)
         }
 
@@ -82,9 +88,9 @@ class BatchActivity : BaseActivity(), View.OnClickListener {
                         val result = o[i]
                         val ex = result.error
                         if (ex == null) {
-                            Log.e("CREATE BATCH","第" + i + "个数据批量添加成功：" + result.createdAt + "," + result.objectId + "," + result.updatedAt)
+                            Log.e("CREATE BATCH", "第" + i + "个数据批量添加成功：" + result.createdAt + "," + result.objectId + "," + result.updatedAt)
                         } else {
-                            Log.e("CREATE BATCH","第" + i + "个数据批量添加失败：" + ex.message + "," + ex.errorCode)
+                            Log.e("CREATE BATCH", "第" + i + "个数据批量添加失败：" + ex.message + "," + ex.errorCode)
                         }
                     }
                 } else {
@@ -93,6 +99,7 @@ class BatchActivity : BaseActivity(), View.OnClickListener {
             }
         })
     }
+
     /**
      * 批量更新数据
      */
@@ -133,8 +140,11 @@ class BatchActivity : BaseActivity(), View.OnClickListener {
                 }
             }
         })
-
     }
+
+    /**
+     * 批量新增、更新、删除同步操作
+     */
     private fun doBatch() {
 
         val batch = BmobBatch()
@@ -162,7 +172,7 @@ class BatchActivity : BaseActivity(), View.OnClickListener {
         gameScores2.add(gameScore2)
         batch.deleteBatch(gameScores2)
 
-        //执行批量操作
+        //从3.5.0版本开始提供
         batch.doBatch(object : QueryListListener<BatchResult>() {
 
             override fun done(results: List<BatchResult>, ex: BmobException?) {

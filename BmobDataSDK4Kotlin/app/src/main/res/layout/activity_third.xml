@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
 
-</LinearLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingTop="56dp"
+        android:paddingRight="24dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@mipmap/ic_bmob" />
+
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="第三方账号一键注册或登录" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_associate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="关联第三方账号" />
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_un_associate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="解除第三方账号关联" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>

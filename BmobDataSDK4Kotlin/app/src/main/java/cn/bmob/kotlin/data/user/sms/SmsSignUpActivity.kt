@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.bmob.kotlin.data.R
 import cn.bmob.kotlin.data.bean.User
-import cn.bmob.kotlin.data.user.LoginActivity
+import cn.bmob.kotlin.data.user.login.LoginActivity
 import cn.bmob.v3.BmobSMS
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException

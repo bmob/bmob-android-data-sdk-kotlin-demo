@@ -44,8 +44,8 @@
         </activity>
         <activity android:name=".crud.CrudActivity" />
         <activity
-            android:name=".user.LoginActivity" />
-        <activity android:name=".user.RegisterActivity" />
+            android:name=".user.login.LoginActivity" />
+        <activity android:name=".user.register.RegisterActivity" />
         <activity android:name=".main.MainActivity" />
         <activity android:name="cn.bmob.kotlin.data.data.file.FileActivity" />
         <activity android:name="cn.bmob.kotlin.data.function.sms.SmsActivity" />
@@ -69,6 +69,20 @@
         <activity
             android:name=".user.sms.SmsSignUpActivity">
         </activity>
+        <activity android:name=".user.UserManagerActivity" />
+        <activity android:name=".data.DataTypeActivity" />
+        <activity android:name=".function.FunctionsActivity" />
+        <activity android:name=".function.realtime.RealtimeActivity" />
+        <activity android:name=".correlation.post.PostsActivity" />
+        <activity android:name=".user.email.EmailActivity" />
+        <activity android:name=".user.third.ThirdActivity" />
+        <activity android:name=".data.array.ArrayActivity" />
+        <activity android:name=".data.installation.InstallationActivity" />
+        <activity android:name=".data.location.LocationActivity" />
+        <activity android:name=".correlation.post.PublishPostActivity" />
+        <activity android:name=".correlation.CorrelationActivity" />
+        <activity android:name=".function.acl.AclActivity" />
+        <activity android:name=".function.article.ArticleActivity" />
     </application>
 
 </manifest>

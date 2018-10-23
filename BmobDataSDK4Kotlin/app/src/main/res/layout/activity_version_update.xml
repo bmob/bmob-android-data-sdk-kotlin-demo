@@ -7,7 +7,12 @@
     android:orientation="vertical"
     tools:context=".function.update.VersionUpdateActivity">
 
-
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:src="@mipmap/ic_bmob" />
     <Button
         android:id="@+id/btn_auto_update"
         android:layout_width="match_parent"
