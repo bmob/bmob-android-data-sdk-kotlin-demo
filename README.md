@@ -27,9 +27,9 @@ http://www.android-studio.org/
 
 ## 依赖配置
 
-在应用build.gradle的dependencies节点下配置：
+在应用build.gradle的dependencies节点下配置，其中x.y.z为数据服务SDK版本号码：
 
-    implementation 'cn.bmob.android:bmob-sdk:3.6.6'
+    implementation 'cn.bmob.android:bmob-sdk:x.y.z'
 
 ## 权限注册
 
