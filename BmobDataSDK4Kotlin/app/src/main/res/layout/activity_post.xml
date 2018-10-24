@@ -31,4 +31,39 @@
 
 
 
+
+
+    <!-- Password Label -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/input_comment_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="评论内容"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:id="@+id/btn_add_comment"
+        android:text="添加评论"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:id="@+id/btn_modify_comment"
+        android:text="修改评论"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:id="@+id/btn_delete_comment"
+        android:text="删除评论"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

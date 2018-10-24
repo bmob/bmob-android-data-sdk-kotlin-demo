@@ -6,16 +6,16 @@ class Comment :BmobObject() {
     /**
      * 评论内容
      */
-    private var content: String? = null
+     var content: String? = null
 
     /**
      * 评论的用户，一对一关系
      */
-    private var user: User? = null
+     var user: User? = null
 
     /**
      * 所评论的帖子，一对一关系
      */
-    private var post: Post? = null
+     var post: Post? = null
 
 }

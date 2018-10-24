@@ -29,8 +29,6 @@ class PublishPostActivity : BaseActivity(), View.OnClickListener {
      * 发布帖子
      */
     private fun publishPost() {
-
-
         val content = input_post.text.toString()
         if (TextUtils.isEmpty(content)) {
             Toast.makeText(mContext, "请输入内容", Toast.LENGTH_LONG).show()
@@ -55,7 +53,6 @@ class PublishPostActivity : BaseActivity(), View.OnClickListener {
                 }
             }
         })
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

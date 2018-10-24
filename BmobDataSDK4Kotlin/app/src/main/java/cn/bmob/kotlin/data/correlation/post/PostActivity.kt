@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import cn.bmob.kotlin.data.R
 import cn.bmob.kotlin.data.base.BaseActivity
+import cn.bmob.kotlin.data.bean.Comment
 import cn.bmob.kotlin.data.bean.Post
 import cn.bmob.kotlin.data.bean.User
 import cn.bmob.v3.BmobQuery
@@ -12,6 +13,7 @@ import cn.bmob.v3.datatype.BmobPointer
 import cn.bmob.v3.datatype.BmobRelation
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
+import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_post.*
@@ -34,7 +36,62 @@ class PostActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_like -> like(objectId)
             R.id.btn_likes -> likes(objectId)
             R.id.btn_unlike -> unlike(objectId)
+
+            R.id.btn_add_comment -> addComment(objectId)
+
+            R.id.btn_modify_comment->queryComment(objectId)
         }
+    }
+
+
+    /**
+     * 查询帖子的所有评论
+     */
+    private fun queryComment(objectId: String?) {
+        val query = BmobQuery<Comment>()
+        val post = Post()
+        //用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
+        post.objectId = objectId
+        query.addWhereEqualTo("post", BmobPointer(post))
+        //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
+        query.include("user,post.author")
+        query.findObjects(object :FindListener<Comment>(){
+            override fun done(comments: MutableList<Comment>?, ex: BmobException?) {
+
+                if (ex == null) {
+                    Snackbar.make(btn_add_comment, "评论发表成功", Snackbar.LENGTH_LONG).show()
+                } else {
+                    Snackbar.make(btn_add_comment, "评论发表失败：" + ex.message, Snackbar.LENGTH_LONG).show()
+                }
+            }
+
+        })
+    }
+
+
+    /**
+     *
+     */
+    private fun addComment(objectId: String?) {
+        val user = BmobUser.getCurrentUser<User>(User::class.java)
+        val content = input_comment_content.text.toString()
+        val post = Post()
+        post.objectId = objectId
+        val comment = Comment()
+        comment.content = content
+        comment.user = user
+        comment.post = post
+        comment.save(object : SaveListener<String>() {
+
+            override fun done(objectId: String, e: BmobException?) {
+                if (e == null) {
+                    Snackbar.make(btn_add_comment, "评论发表成功", Snackbar.LENGTH_LONG).show()
+                } else {
+                    Snackbar.make(btn_add_comment, "评论发表失败：" + e.message, Snackbar.LENGTH_LONG).show()
+                }
+            }
+
+        })
     }
 
 

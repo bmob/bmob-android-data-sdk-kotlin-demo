@@ -1013,6 +1013,83 @@ http://kotlinlang.org/docs/reference/android-overview.html
 
 # 数组
 
+### 添加数组
+```
+/**
+ * 添加数组
+ */
+private fun addArray() {
+    val user = BmobUser.getCurrentUser(User::class.java)
+    if (user==null){
+        Snackbar.make(btn_array_add,"请先登录",Snackbar.LENGTH_LONG).show()
+        return
+    }
+    user.add("hobbies", "唱歌")
+    user.update(object :UpdateListener(){
+        override fun done(e: BmobException?) {
+            if(e==null){
+                Log.i("bmob","更新成功")
+            }else{
+                Log.i("bmob","更新失败："+e.message)
+            }  
+        }
+    })
+}
+```
+
+### 更新数组
+
+```
+/**
+ * 更新数组
+ */
+private fun updateArray() {
+    val user = BmobUser.getCurrentUser(User::class.java)
+    if (user == null) {
+        Snackbar.make(btn_array_add, "请先登录", Snackbar.LENGTH_LONG).show()
+        return
+    }
+    user.setValue("hobbies.0", "爬山")
+    user.update(object : UpdateListener() {
+        override fun done(e: BmobException?) {
+            if (e == null) {
+                Snackbar.make(btn_array_add, "更新成功", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(btn_array_add, "更新失败：" + e.message, Snackbar.LENGTH_LONG).show()
+            }
+        }
+    })
+}
+
+```
+
+### 删除数组
+
+```
+/**
+ * 删除数组
+ */
+private fun deleteArray() {
+    val user = BmobUser.getCurrentUser(User::class.java)
+    if (user == null) {
+        Snackbar.make(btn_array_add, "请先登录", Snackbar.LENGTH_LONG).show()
+        return
+    }
+    user.removeAll("hobbies", Arrays.asList("阅读", "唱歌", "游泳"))
+    user.update(object : UpdateListener() {
+
+        override fun done(e: BmobException?) {
+            if (e == null) {
+                Log.i("bmob", "成功")
+            } else {
+                Log.i("bmob", "失败：" + e.message)
+            }
+        }
+    })
+}
+
+```
+
 
 # 位置
 
@@ -1080,7 +1157,40 @@ http://kotlinlang.org/docs/reference/android-overview.html
 
 ## 一对一关联
 
-### 查询
+### 添加一对一关系
+```
+/**
+ * 发布帖子
+ */
+private fun publishPost() {
+    val content = input_post.text.toString()
+    if (TextUtils.isEmpty(content)) {
+        Toast.makeText(mContext, "请输入内容", Toast.LENGTH_LONG).show()
+        return
+    }
+
+    val user = BmobUser.getCurrentUser(User::class.java)
+    if(user==null) {
+        Toast.makeText(mContext, "请先登录", Toast.LENGTH_LONG).show()
+        return
+    }
+    val post = Post()
+    post.content = content
+    post.author = user
+    post.save(object : SaveListener<String>() {
+        override fun done(objectId: String?, ex: BmobException?) {
+            if (ex == null) {
+                Toast.makeText(mContext, "发布成功", Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                Toast.makeText(mContext, "发布失败：${ex.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+    })
+}
+
+```
+### 查询一对一关系
 
         val user = BmobUser.getCurrentUser<User>(User::class.java)
         val query = BmobQuery<Post>()
@@ -1101,6 +1211,63 @@ http://kotlinlang.org/docs/reference/android-overview.html
 
 
 ## 一对多关联
+
+### 添加一对多关系
+
+```
+/**
+ * 
+ */
+private fun addComment(objectId: String?) {
+    val user = BmobUser.getCurrentUser<User>(User::class.java)
+    val content = input_comment_content.text.toString()
+    val post = Post()
+    post.objectId = objectId
+    val comment = Comment()
+    comment.content = content
+    comment.user = user
+    comment.post = post
+    comment.save(object : SaveListener<String>() {
+
+        override fun done(objectId: String, e: BmobException?) {
+            if (e == null) {
+                Snackbar.make(btn_add_comment, "评论发表成功", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(btn_add_comment, "评论发表失败：" + e.message, Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+    })
+}
+
+```
+### 查询一对多关系
+
+```
+/**
+ * 查询帖子的所有评论
+ */
+private fun queryComment(objectId: String?) {
+    val query = BmobQuery<Comment>()
+    val post = Post()
+    //用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
+    post.objectId = objectId
+    query.addWhereEqualTo("post", BmobPointer(post))
+    //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
+    query.include("user,post.author")
+    query.findObjects(object :FindListener<Comment>(){
+        override fun done(comments: MutableList<Comment>?, ex: BmobException?) {
+
+            if (ex == null) {
+                Snackbar.make(btn_add_comment, "评论发表成功", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(btn_add_comment, "评论发表失败：" + ex.message, Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+    })
+}
+```
 
 ## 多对多关联
 
@@ -1152,13 +1319,42 @@ private fun likes(objectId: String?) {
     query.findObjects(object : FindListener<User>() {
         override fun done(users: List<User>, e: BmobException?) {
             if (e == null) {
-                Log.i("bmob", "查询个数：" + users.size)
+                Snackbar.make(btn_likes, "查询成功：" + users.size, Snackbar.LENGTH_LONG).show()
             } else {
-                Log.i("bmob", "失败：" + e.message)
+                Snackbar.make(btn_likes, "查询失败：" + e.message, Snackbar.LENGTH_LONG).show()
             }
         }
     })
 }
+
+```
+
+### 删除多对多关系
+
+```
+/**
+ * 取消喜欢该帖子
+ */
+private fun unlike(objectId: String?) {
+    val post = Post()
+    post.objectId = objectId
+    val user = BmobUser.getCurrentUser<User>(User::class.java!!)
+    val relation = BmobRelation()
+    relation.remove(user)
+    post.likes = relation
+    post.update(object : UpdateListener() {
+
+        override fun done(e: BmobException?) {
+            if (e == null) {
+                Snackbar.make(btn_unlike, "关联关系删除成功", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(btn_likes, "关联关系删除失败：" + e.message, Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+    })
+}
+
 ```
 
 
