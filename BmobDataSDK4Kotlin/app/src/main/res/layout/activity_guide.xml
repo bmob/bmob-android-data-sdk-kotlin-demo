@@ -61,6 +61,13 @@
                 android:layout_margin="16dp"
                 android:text="其他应用功能" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_other_operation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="其他相关操作" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>

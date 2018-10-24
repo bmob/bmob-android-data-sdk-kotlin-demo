@@ -84,6 +84,7 @@
         <activity android:name=".function.acl.AclActivity" />
         <activity android:name=".function.article.ArticleActivity" />
         <activity android:name=".correlation.post.PostActivity"/>
+        <activity android:name=".other.OtherOperationActivity"/>
     </application>
 
 </manifest>

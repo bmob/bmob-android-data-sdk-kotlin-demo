@@ -2,7 +2,6 @@ package cn.bmob.kotlin.data.bean
 
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.datatype.BmobFile
-import java.lang.Boolean.FALSE
 
 /**
  *
@@ -23,5 +22,7 @@ class User : BmobUser() {
     var avatar : BmobFile?= null
 
 
+
+    var hobbies : MutableList<String>? = null
 
 }

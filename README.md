@@ -55,6 +55,16 @@ http://www.android-studio.org/
 
 
 
+# 数据类型
+|Web端类型|支持的Kotlin类型|说明|
+|---|---|---|
+|Number|Byte、Short、Int、Long、Float、Double |基本数据类型|
+|Array|MutableList|数组类型|
+|File|BmobFile|Bmob特有类型，用来标识文件类型|
+|GeoPoint|BmobGeoPoint|Bmob特有类型，用来标识地理位置|
+|Date|BmobDate|Bmob特有类型，用来标识日期类型|
+|Pointer|特定对象|Bmob特有类型，用来标识指针类型|
+|Relation|BmobRelation|Bmob特有类型，用来标识数据关联|
 
 
 # 增删改查
@@ -1363,6 +1373,27 @@ private fun unlike(objectId: String?) {
     })
 }
 
+```
+
+# 服务器时间
+考虑到安全问题，要求客户端的时间必须是正常时间，否则会返回"sdk time error"错误，如果出现此问题，可以先获取服务器时间，再设置好客户端时间后重新请求。
+```
+/**
+ * 获取服务器时间
+ */
+private fun getBmobServerTime() {
+    Bmob.getServerTime(object : QueryListener<Long>() {
+        override fun done(time: Long, e: BmobException?) {
+            if (e == null) {
+                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                val times = formatter.format(Date(time * 1000L))
+                Snackbar.make(btn_get_server_time,"当前服务器时间为:$times",Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(btn_get_server_time,"获取服务器时间失败:" + e.message,Snackbar.LENGTH_LONG).show()
+            }
+        }
+    })
+}
 ```
 
 
