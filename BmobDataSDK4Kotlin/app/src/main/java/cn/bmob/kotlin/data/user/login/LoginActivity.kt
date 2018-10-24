@@ -1,12 +1,11 @@
 package cn.bmob.kotlin.data.user.login
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.kotlin.data.bean.User
 import cn.bmob.kotlin.data.main.MainActivity
 import cn.bmob.v3.exception.BmobException
@@ -17,12 +16,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * Created on 2018/10/11 14:27
  * @author zhangchaozhou
  */
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
-    /**
-     * var 变量
-     * val 常量
-     */
-    private var mContext: Context? = null
+class LoginActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onClick(v: View?) {

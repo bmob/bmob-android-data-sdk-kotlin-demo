@@ -1,18 +1,17 @@
 package cn.bmob.kotlin.data.data.file
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.kotlin.data.bean.Post
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.datatype.BmobFile
@@ -26,9 +25,8 @@ import java.io.File
  * Created on 2018/10/11 17:03
  * @author zhangchaozhou
  */
-class FileActivity : AppCompatActivity(), View.OnClickListener {
+class FileActivity : BaseActivity(), View.OnClickListener {
 
-    private lateinit var mContext: Context
     private val REQUEST_WRITE_CODE: Int = 1001
     private val REQUEST_SELECT_CODE: Int = 1002
     private val REQUEST_SELECT_AVATAR_CODE: Int = 1003

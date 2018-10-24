@@ -15,6 +15,7 @@ import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_crud.*
 
 /**
@@ -45,9 +46,9 @@ class CrudActivity : BaseActivity(), View.OnClickListener {
         bmobQuery.getObject(objectId, object : QueryListener<Post>() {
             override fun done(post: Post?, ex: BmobException?) {
                 if (ex == null) {
-                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                    Snackbar.make(btn_to_get, "查询成功", Snackbar.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                    Snackbar.make(btn_to_get, "查询失败：" + ex.message, Snackbar.LENGTH_LONG).show()
                 }
             }
         })
@@ -89,9 +90,8 @@ class CrudActivity : BaseActivity(), View.OnClickListener {
         var bmobQuery: BmobQuery<Post> = BmobQuery()
         bmobQuery.findObjects(object : FindListener<Post>() {
             override fun done(posts: MutableList<Post>?, ex: BmobException?) {
-
                 if (ex == null) {
-                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                    Snackbar.make(btn_to_get, "查询成功", Snackbar.LENGTH_LONG).show()
                     if (posts != null) {
                         for (post: Post in posts) {
                             Log.e("Post", post.title)
@@ -104,7 +104,8 @@ class CrudActivity : BaseActivity(), View.OnClickListener {
                         }
                     }
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+
+                    Snackbar.make(btn_to_get, "查询失败：${ex.message}", Snackbar.LENGTH_LONG).show()
                 }
             }
         })
@@ -120,14 +121,14 @@ class CrudActivity : BaseActivity(), View.OnClickListener {
             override fun done(posts: MutableList<Post>?, ex: BmobException?) {
 
                 if (ex == null) {
-                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                    Snackbar.make(btn_to_get, "查询成功", Snackbar.LENGTH_LONG).show()
                     if (posts != null) {
                         for (post: Post in posts) {
                             Log.e("Post", post.title)
                         }
                     }
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                    Snackbar.make(btn_to_get, "查询失败：${ex.message}", Snackbar.LENGTH_LONG).show()
                 }
             }
         })
@@ -144,9 +145,9 @@ class CrudActivity : BaseActivity(), View.OnClickListener {
         post.update(object : UpdateListener() {
             override fun done(ex: BmobException?) {
                 if (ex == null) {
-                    Toast.makeText(mContext, "更新成功", Toast.LENGTH_LONG).show()
+                    Snackbar.make(btn_to_get, "更新成功", Snackbar.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                    Snackbar.make(btn_to_get, "更新失败：${ex.message}", Snackbar.LENGTH_LONG).show()
                 }
             }
 

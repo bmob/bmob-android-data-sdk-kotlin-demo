@@ -1103,3 +1103,62 @@ http://kotlinlang.org/docs/reference/android-overview.html
 ## 一对多关联
 
 ## 多对多关联
+
+### 添加多对多关系
+
+```
+/**
+ * 喜欢该帖子
+ */
+private fun like(objectId: String?) {
+    val user = BmobUser.getCurrentUser<User>(User::class.java)
+    if (user != null) {
+        Snackbar.make(btn_like, "请先登录", Snackbar.LENGTH_LONG).show()
+        return
+    }
+    val post = Post()
+    post.objectId = objectId
+    //将当前用户添加到Post表中的likes字段值中，表明当前用户喜欢该帖子
+    val relation = BmobRelation()
+    //将当前用户添加到多对多关联中
+    relation.add(user)
+    //多对多关联指向`post`的`likes`字段
+    post.likes = relation
+    post.update(object : UpdateListener() {
+        override fun done(e: BmobException?) {
+            if (e == null) {
+                Snackbar.make(btn_like, "多对多关联添加成功", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(btn_like, "多对多关联添加失败：" + e.message, Snackbar.LENGTH_LONG).show()
+            }
+        }
+    })
+}
+```
+
+### 查询多对多关系
+
+```
+/**
+ * 查询喜欢该帖子的所有用户
+ */
+private fun likes(objectId: String?) {
+    // 查询喜欢这个帖子的所有用户，因此查询的是用户表
+    val query = BmobQuery<User>()
+    val post = Post()
+    post.objectId = objectId
+    //likes是Post表中的字段，用来存储所有喜欢该帖子的用户
+    query.addWhereRelatedTo("likes", BmobPointer(post))
+    query.findObjects(object : FindListener<User>() {
+        override fun done(users: List<User>, e: BmobException?) {
+            if (e == null) {
+                Log.i("bmob", "查询个数：" + users.size)
+            } else {
+                Log.i("bmob", "失败：" + e.message)
+            }
+        }
+    })
+}
+```
+
+

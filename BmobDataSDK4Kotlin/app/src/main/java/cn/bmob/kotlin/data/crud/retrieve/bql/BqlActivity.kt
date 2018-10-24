@@ -1,19 +1,17 @@
 package cn.bmob.kotlin.data.crud.retrieve.bql
 
-import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.kotlin.data.bean.Post
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.datatype.BmobQueryResult
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SQLQueryListener
 
-class BqlActivity : AppCompatActivity() {
+class BqlActivity : BaseActivity() {
 
-    private lateinit var mContext: Context
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

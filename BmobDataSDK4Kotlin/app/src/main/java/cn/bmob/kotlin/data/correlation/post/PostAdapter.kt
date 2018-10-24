@@ -1,6 +1,7 @@
 package cn.bmob.kotlin.data.correlation.post
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,11 @@ import cn.bmob.kotlin.data.bean.Post
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
+
+/**
+ * 帖子适配器
+ *
+ */
 class PostAdapter : RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private var mContext: Context
     private var posts: MutableList<Post>? = null
@@ -38,6 +44,10 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.ViewHolder> {
             Glide.with(mContext).load(post?.author!!.avatar).into(holder?.civAvatar)
             holder?.tvContent?.text = post?.content
             holder?.tvNickname?.text= post?.author?.nickname
+            holder.itemView.setOnClickListener {
+                //跳转到详情页
+                mContext.startActivity(Intent(mContext,PostActivity::class.java))
+            }
         }
     }
 

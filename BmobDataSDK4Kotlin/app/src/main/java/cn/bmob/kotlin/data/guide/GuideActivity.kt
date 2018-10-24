@@ -2,25 +2,17 @@ package cn.bmob.kotlin.data.guide
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.kotlin.data.correlation.CorrelationActivity
-import cn.bmob.kotlin.data.correlation.post.PostsActivity
 import cn.bmob.kotlin.data.crud.CrudActivity
 import cn.bmob.kotlin.data.data.DataTypeActivity
-import cn.bmob.kotlin.data.data.file.FileActivity
-import cn.bmob.kotlin.data.data.location.LocationActivity
 import cn.bmob.kotlin.data.function.FunctionsActivity
-import cn.bmob.kotlin.data.function.sms.SmsActivity
-import cn.bmob.kotlin.data.function.update.VersionUpdateActivity
 import cn.bmob.kotlin.data.user.UserManagerActivity
-import cn.bmob.kotlin.data.user.login.LoginActivity
-import cn.bmob.kotlin.data.user.register.RegisterActivity
-import cn.bmob.kotlin.data.user.sms.SmsSignUpActivity
 import kotlinx.android.synthetic.main.activity_guide.*
 
-class GuideActivity : AppCompatActivity(), View.OnClickListener {
+class GuideActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         var id: Int = v!!.id
         when (id) {

@@ -1,14 +1,13 @@
 package cn.bmob.kotlin.data.user.sms
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.kotlin.data.bean.User
 import cn.bmob.kotlin.data.user.login.LoginActivity
 import cn.bmob.v3.BmobSMS
@@ -22,9 +21,8 @@ import kotlinx.android.synthetic.main.activity_sms_sign_up.*
 /**
  * 短信注册
  */
-class SmsSignUpActivity : AppCompatActivity(), View.OnClickListener {
+class SmsSignUpActivity : BaseActivity(), View.OnClickListener {
 
-    private var mContext: Context? = null
     override fun onClick(v: View?) {
         var id = v!!.id
         when (id) {

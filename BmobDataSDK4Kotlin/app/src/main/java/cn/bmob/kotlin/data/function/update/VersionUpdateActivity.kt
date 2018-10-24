@@ -1,30 +1,28 @@
 package cn.bmob.kotlin.data.function.update
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.v3.update.BmobUpdateAgent
 import cn.bmob.v3.update.UpdateResponse
 import cn.bmob.v3.update.UpdateStatus
 import kotlinx.android.synthetic.main.activity_version_update.*
 import java.util.*
 
-class VersionUpdateActivity : AppCompatActivity(), View.OnClickListener {
+class VersionUpdateActivity : BaseActivity(), View.OnClickListener {
 
     private val REQUEST_AUTO = 1001
     private val REQUEST_CHECK = 1002
     private val REQUEST_SILENT = 1003
     private val REQUEST_DELETE = 1004
 
-    var mContext: Context? = null
     private var updateResponse: UpdateResponse? = null
     override fun onClick(v: View?) {
         var id = v!!.id

@@ -1,20 +1,18 @@
 package cn.bmob.kotlin.data.function.sms
 
-import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.v3.BmobSMS
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.UpdateListener
 import kotlinx.android.synthetic.main.activity_sms.*
 
-class SmsActivity : AppCompatActivity(), View.OnClickListener {
-    var mContext: Context? = null
+class SmsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         var id = v!!.id

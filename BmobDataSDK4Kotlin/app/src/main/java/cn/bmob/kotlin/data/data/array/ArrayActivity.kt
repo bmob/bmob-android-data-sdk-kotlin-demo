@@ -2,11 +2,11 @@ package cn.bmob.kotlin.data.data.array
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_array.*
 
-class ArrayActivity :AppCompatActivity(), View.OnClickListener {
+class ArrayActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         var id = v!!.id
         when(id){

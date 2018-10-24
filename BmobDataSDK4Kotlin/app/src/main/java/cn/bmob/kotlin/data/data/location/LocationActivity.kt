@@ -1,11 +1,10 @@
 package cn.bmob.kotlin.data.data.location
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import cn.bmob.kotlin.data.R
+import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.kotlin.data.bean.User
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.datatype.BmobGeoPoint
@@ -13,9 +12,8 @@ import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import kotlinx.android.synthetic.main.activity_location.*
 
-class LocationActivity : AppCompatActivity(), View.OnClickListener {
+class LocationActivity : BaseActivity(), View.OnClickListener {
 
-    var mContext: Context? = null
 
     override fun onClick(v: View?) {
         var id = v!!.id
