@@ -400,7 +400,23 @@ http://www.android-studio.org/
                 }
             }
         })
-
+## 修改密码
+```
+/**
+ * 修改密码，必须先登录
+ */
+private fun resetPassword() {
+    BmobUser.updateCurrentUserPassword("旧密码", "新密码", object : UpdateListener() {
+        override fun done(e: BmobException?) {
+            if (e == null) {
+                Snackbar.make(btn_reset, "密码修改成功，可以用新密码进行登录啦", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(btn_reset, "密码修改失败：${e.message}", Snackbar.LENGTH_LONG).show()
+            }
+        }
+    })
+}
+```
 # 文件管理
 
 ## 权限

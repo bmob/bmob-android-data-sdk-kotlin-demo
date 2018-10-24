@@ -20,10 +20,10 @@
         android:layout_marginTop="8dp">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_username_login"
+            android:id="@+id/edt_old_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="用户名"
+            android:hint="旧密码"
             android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,18 +36,18 @@
         android:layout_marginTop="8dp">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_password_login"
+            android:id="@+id/edt_new_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码"
+            android:hint="新密码"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_reset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登录"/>
+        android:text="修改"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
