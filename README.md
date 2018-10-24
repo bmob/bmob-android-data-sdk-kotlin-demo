@@ -10,7 +10,11 @@ http://kotlinlang.org/docs/reference/android-overview.html
 
 
 # 集成
-
+## 开发工具
+Android Studio，具体使用可参考：
+```
+http://www.android-studio.org/
+```
 ## 仓库配置
 
 在项目build.gradle的allprojects-repositories节点下配置：
@@ -519,6 +523,8 @@ http://kotlinlang.org/docs/reference/android-overview.html
 
 # 短信
 
+短信功能目前属于按需付费功能，请到应用设置--付费升级中购买短信量。
+
 ## 发送短信验证码
 
         /**
@@ -552,7 +558,7 @@ http://kotlinlang.org/docs/reference/android-overview.html
 
 # 邮箱
 
-邮箱功能目前属于付费功能，一次性付费人民币1200元永久使用，如需此功能，请提交工单申请开通。
+邮箱功能目前属于按需付费功能，请到应用设置--付费升级中购买邮件量。
 
 ## 验证激活
 
@@ -875,6 +881,8 @@ http://kotlinlang.org/docs/reference/android-overview.html
 2、onConnectCompleted回调方法后判断是否连接成功，若成功则设置监听内容；
 
 3、onDataChange回调方法返回监听到的更新内容。
+
+4、数据监听目前属于按需付费，请到应用设置--付费升级中购买。
 
     private fun startListen() {
         val rtd = BmobRealTimeData()
