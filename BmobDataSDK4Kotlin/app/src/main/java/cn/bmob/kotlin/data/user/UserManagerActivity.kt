@@ -8,8 +8,10 @@ import cn.bmob.kotlin.data.base.BaseActivity
 import cn.bmob.kotlin.data.user.email.EmailActivity
 import cn.bmob.kotlin.data.user.login.LoginActivity
 import cn.bmob.kotlin.data.user.register.RegisterActivity
+import cn.bmob.kotlin.data.user.reset.ResetActivity
 import cn.bmob.kotlin.data.user.sms.SmsSignUpActivity
 import cn.bmob.kotlin.data.user.third.ThirdActivity
+import kotlinx.android.synthetic.main.activity_reset.*
 import kotlinx.android.synthetic.main.activity_user_manager.*
 
 class UserManagerActivity : BaseActivity(), View.OnClickListener {
@@ -22,6 +24,7 @@ class UserManagerActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_email-> startActivity(Intent(mContext,EmailActivity::class.java))
             R.id.btn_sms-> startActivity(Intent(mContext,SmsSignUpActivity::class.java))
             R.id.btn_third-> startActivity(Intent(mContext,ThirdActivity::class.java))
+            R.id.btn_reset ->startActivity(Intent(mContext,ResetActivity::class.java))
         }
     }
 
@@ -33,5 +36,6 @@ class UserManagerActivity : BaseActivity(), View.OnClickListener {
         btn_email.setOnClickListener(this)
         btn_sms.setOnClickListener(this)
         btn_third.setOnClickListener(this)
+        btn_reset.setOnClickListener(this)
     }
 }

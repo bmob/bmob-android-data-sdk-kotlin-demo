@@ -8,6 +8,10 @@ http://kotlinlang.org/docs/reference/android-overview.html
 
 由于Kotlin和Java之间具有可互操作性，为方便广大Bmob的Kotlin开发者，特开发此案例，展示如何使用Kotlin来调用Bmob的Android数据服务SDK。
 
+案例地址：
+```
+https://github.com/bmob/bmob-android-data-sdk-kotlin-demo
+```
 
 # 集成
 ## 开发工具
@@ -49,7 +53,7 @@ http://www.android-studio.org/
 
 ## 初始化
 	
-在应用主进程中进行代码初始化：
+在应用主进程中进行代码初始化，BMOB_APP_ID请到应用设置中获取：
 
     Bmob.initialize(this,Constant.BMOB_APP_ID)
 
@@ -66,7 +70,14 @@ http://www.android-studio.org/
 |Pointer|特定对象|Bmob特有类型，用来标识指针类型|
 |Relation|BmobRelation|Bmob特有类型，用来标识数据关联|
 
-
+# 默认表
+|Web端表名|支持的Kotlin类型|说明|
+|---|---|---|
+|_User|BmobUser|用户系统|
+|_Role|BmobRole|用户角色|
+|_Installation|BmobInstallation|用户设备|
+|_Article|用户自定义|图文消息|
+|AppVersion|AppVersion|版本升级|
 # 增删改查
 
 ### 添加一行数据
@@ -1406,6 +1417,46 @@ private fun getBmobServerTime() {
                 Snackbar.make(btn_get_server_time,"当前服务器时间为:$times",Snackbar.LENGTH_LONG).show()
             } else {
                 Snackbar.make(btn_get_server_time,"获取服务器时间失败:" + e.message,Snackbar.LENGTH_LONG).show()
+            }
+        }
+    })
+}
+```
+# 表结构
+
+## 获取单表结构
+```
+/**
+ * 获取某张表的表结构
+ */
+private fun getTable(table: String?) {
+    Bmob.getTableSchema(table, object : QueryListener<BmobTableSchema>() {
+
+        override fun done(schema: BmobTableSchema, ex: BmobException?) {
+            if (ex == null) {
+                Log.i("bmob", "获取指定表的表结构信息成功：" + schema.className + "-" + schema.fields.toString())
+            } else {
+                Log.i("bmob", "获取指定表的表结构信息失败:" + ex.localizedMessage + "(" + ex.errorCode + ")")
+            }
+        }
+    })
+}
+
+```
+## 获取所有表结构
+```
+/**
+ * 获取所有表结构
+ */
+private fun getAllTable() {
+
+    Bmob.getAllTableSchema(object : QueryListListener<BmobTableSchema>() {
+
+        override fun done(schemas: List<BmobTableSchema>?, ex: BmobException?) {
+            if (ex == null && schemas != null && schemas.isNotEmpty()) {
+                Log.i("bmob", "获取所有表结构信息成功")
+            } else {
+                Log.i("bmob", "获取所有表结构信息失败：" + ex!!.localizedMessage + "(" + ex.errorCode + ")")
             }
         }
     })

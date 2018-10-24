@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
         android:id="@+id/btn_get_server_time"
-        android:text="获取服务器时间"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取服务器时间"/>
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_get_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取某张表结构"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_get_all_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取所有表结构"/>
 </LinearLayout>
